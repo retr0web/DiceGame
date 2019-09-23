@@ -15,10 +15,10 @@ namespace DiceGame
     {
         static void Main(string[] args)
         {
-            Player playerOne = new Player();
-            Player playerTwo = new Player();
-            Player computer = new Player();
-            computer.Name = "Bobby Shmurda";
+            
+            Player playerOne = null;
+            Player playerTwo = null;
+            Player computer = null;
             bool twoPlayers = false;
             
             
@@ -42,48 +42,32 @@ namespace DiceGame
             { 
                 Console.WriteLine("///////////////////////////////////////////////////////");
                 Console.WriteLine("Greetings. How many players will play");
-               int numberOfPlayers = Convert.ToInt32(Console.ReadLine());
-
-               if (numberOfPlayers == 2)
-               {
-                   twoPlayers = true;
-                   Introduce(playerOne.Name);
-                   Introduce(playerTwo.Name);
-                   GameForTwo();
-               }
-
-               else if (numberOfPlayers == 1)
-               {
-                   Introduce(playerOne.Name);
-                   GameForOne();
-               }
-
-               else
-               {
-                   Console.WriteLine("You entered a wrong number. Please try again");
-                   HowManyPlayers();
-               }
-            }
-
-            // giving a name to players
-            void Introduce(string player)
-            {
-                Console.WriteLine("///////////////////////////////////////////////////////");
-                Console.WriteLine("Player, enter your name");
-                string nameOfPlayer = Console.ReadLine();
-
-                if (nameOfPlayer == null)
+                string numberOfPlayersInput = Console.ReadLine();
+                while (numberOfPlayersInput!="1" && numberOfPlayersInput!="2")
                 {
-                    Console.WriteLine("You didn't enter a name. Let's try again");
+                    Console.WriteLine("Greetings. How many players will play");
+                    numberOfPlayersInput = Console.ReadLine();
                 }
+                Console.WriteLine("Player1 introduce yourself");
+                playerOne=new Player(Console.ReadLine());
                 
+                if (numberOfPlayersInput=="2")
+                {
+                    twoPlayers = true;
+                    Console.WriteLine("Player2 introduce yourself");
+                    playerTwo=new Player(Console.ReadLine());
+                    
+                    GameForTwo();
+                }
                 else
                 {
-                    player = nameOfPlayer;
-                    Console.WriteLine($"Greetings, {player}");  
+                    computer = new Player("Bobby Shmurda");
+                    Console.WriteLine("abbba");
+                    GameForOne();
                 }
+                
             }
-
+            
             // game with a person
             void GameForTwo()
             {
@@ -94,9 +78,9 @@ namespace DiceGame
 
                 if (command == "roll")
                 {
-                    RollDice(playerOne.Sum);
-                    RollDice(playerTwo.Sum);
-                    Result(playerOne.Sum, playerTwo.Sum);
+                    RollDice(playerOne);
+                    RollDice(playerTwo);
+                    Result(playerOne, playerTwo);
                     AnotherRound();
                 }
 
@@ -118,9 +102,9 @@ namespace DiceGame
 
                 if (command == "roll")
                 {
-                    RollDice(playerOne.Sum);
-                    RollDice(computer.Sum);
-                    Result(playerOne.Sum, computer.Sum);
+                    RollDice(playerOne);
+                    RollDice(computer);
+                    Result(playerOne, computer);
                     AnotherRound();
                 }
 
@@ -132,46 +116,46 @@ namespace DiceGame
             }
 
             // creates 2 random numbers and sum them
-            void RollDice(int player)
+            void RollDice(Player player)
             {
                 Console.WriteLine("///////////////////////////////////////////////////////");
                 Random rnd = new Random();
                 int diceOne = rnd.Next(1, 7);
                 int diceTwo = rnd.Next(1, 7);
                 int score = diceOne + diceTwo;
-                player = score;
-                Console.WriteLine($"Your score is {player}");
+                player.Sum = score;
+                Console.WriteLine($"Your score is {player.Sum}");
             }
 
             // checks who's got a bigger score
-            void Result(int firstSum, int secondSum)
+            void Result(Player player1,Player player2)
             {
-                if (firstSum > secondSum)
+                if (player1.Sum > player2.Sum)
                 {
                     Console.WriteLine("///////////////////////////////////////////////////////");
-                    Console.WriteLine($"{playerOne.Name} scored {playerOne.Sum}");
-                    Console.WriteLine($"{playerTwo.Name} scored {playerTwo.Sum}");
+                    Console.WriteLine($"{player1.Name} scored {player1.Sum}");
+                    Console.WriteLine($"{player2.Name} scored {player2.Sum}");
                     Console.WriteLine($"The winner is {playerOne.Name}");
-                    playerOne.Wins += 1;
+                    player1.Wins += 1;
                 }
                 
-                else if (firstSum < secondSum)
+                else if (player1.Sum < player2.Sum)
                 {
                     Console.WriteLine("///////////////////////////////////////////////////////");
-                    Console.WriteLine($"{playerOne.Name} scored {playerOne.Sum}");
-                    Console.WriteLine($"{playerTwo.Name} scored {playerTwo.Sum}");
-                    Console.WriteLine($"The winner is {playerTwo.Name}");
-                    playerTwo.Wins += 1;
+                    Console.WriteLine($"{player1.Name} scored {player1.Sum}");
+                    Console.WriteLine($"{player2.Name} scored {player2.Sum}");
+                    Console.WriteLine($"The winner is {player2.Name}");
+                    player2.Wins += 1;
                 }
                 
-                else if (firstSum == secondSum)
+                else if (player1.Sum == player2.Sum)
                 {
                     Console.WriteLine("///////////////////////////////////////////////////////");
-                    Console.WriteLine($"{playerOne.Name} scored {playerOne.Sum}");
-                    Console.WriteLine($"{playerTwo.Name} scored {playerTwo.Sum}");
+                    Console.WriteLine($"{player1.Name} scored {player1.Sum}");
+                    Console.WriteLine($"{player2.Name} scored {player2.Sum}");
                     Console.WriteLine($"DRAW");
-                    playerOne.Wins += 1;
-                    playerTwo.Wins += 1;
+                    player1.Wins += 1;
+                    player2.Wins += 1;
                 }
             }
 
@@ -231,3 +215,5 @@ namespace DiceGame
         }
     }
 }
+
+// made by retr0web and SadSesh
