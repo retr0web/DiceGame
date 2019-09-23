@@ -34,7 +34,6 @@ namespace DiceGame
                     "So after you rolled dices you get 2 random numbers (from 1 to 6) and the sum of them.");
                 Console.WriteLine("And who got bigger sum wins a round");
                 Console.WriteLine("You and your friend can have multiple rounds");
-                Console.WriteLine("///////////////////////////////////////////////////////");
             }
             
             // decides to play coop or single player
@@ -62,7 +61,6 @@ namespace DiceGame
                 else
                 {
                     computer = new Player("Bobby Shmurda");
-                    Console.WriteLine("abbba");
                     GameForOne();
                 }
                 
@@ -95,8 +93,8 @@ namespace DiceGame
             void GameForOne()
             {
                 Console.WriteLine("///////////////////////////////////////////////////////");
-                Console.WriteLine("Now each player will role dices");
                 Console.WriteLine("You will be playing with computer");
+                Console.WriteLine("Now each player will role dices");
                 Console.WriteLine("To do so, type 'roll'");
                 string command = Console.ReadLine();
 
@@ -124,7 +122,7 @@ namespace DiceGame
                 int diceTwo = rnd.Next(1, 7);
                 int score = diceOne + diceTwo;
                 player.Sum = score;
-                Console.WriteLine($"Your score is {player.Sum}");
+                Console.WriteLine($"{player.Name} score is {player.Sum}");
             }
 
             // checks who's got a bigger score
@@ -133,8 +131,6 @@ namespace DiceGame
                 if (player1.Sum > player2.Sum)
                 {
                     Console.WriteLine("///////////////////////////////////////////////////////");
-                    Console.WriteLine($"{player1.Name} scored {player1.Sum}");
-                    Console.WriteLine($"{player2.Name} scored {player2.Sum}");
                     Console.WriteLine($"The winner is {playerOne.Name}");
                     player1.Wins += 1;
                 }
@@ -142,8 +138,6 @@ namespace DiceGame
                 else if (player1.Sum < player2.Sum)
                 {
                     Console.WriteLine("///////////////////////////////////////////////////////");
-                    Console.WriteLine($"{player1.Name} scored {player1.Sum}");
-                    Console.WriteLine($"{player2.Name} scored {player2.Sum}");
                     Console.WriteLine($"The winner is {player2.Name}");
                     player2.Wins += 1;
                 }
@@ -151,8 +145,6 @@ namespace DiceGame
                 else if (player1.Sum == player2.Sum)
                 {
                     Console.WriteLine("///////////////////////////////////////////////////////");
-                    Console.WriteLine($"{player1.Name} scored {player1.Sum}");
-                    Console.WriteLine($"{player2.Name} scored {player2.Sum}");
                     Console.WriteLine($"DRAW");
                     player1.Wins += 1;
                     player2.Wins += 1;
